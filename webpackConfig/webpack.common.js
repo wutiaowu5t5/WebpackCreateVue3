@@ -8,11 +8,23 @@
  * 该模块提供了一系列处理文件路径的函数。
  */
 const path = require('path')
+const webpack = require("webpack")
 
 // Vue-loader配置
 const { VueLoaderPlugin } = require('vue-loader')
 // Html模板插件
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+// Element Plus
+const AutoImport = require('unplugin-auto-import/webpack')
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+const IconsResolver = require('unplugin-icons/resolver')
+const Icons = require('unplugin-icons/webpack')
+// Css提取分离
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+// 是否开发环境
+const IsDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
     // 配置模块解析规则
@@ -60,28 +72,45 @@ module.exports = {
             },
             
             {
-                // 匹配.css文件
+                // 匹配.css文件的规则配置
                 test: /\.css$/,
                 use: [
-                    // 将CSS样式插入到DOM中
-                    "style-loader",
-                    // 处理CSS文件，支持模块化、压缩等
+                    // 根据开发环境选择使用style-loader或将CSS提取到单独的文件中
+                    IsDev ? "style-loader" : MiniCssExtractPlugin.loader,
+                    // 对CSS文件进行处理，支持模块化、压缩等操作
                     "css-loader"
                 ]
             },
             
             {
-                // 匹配.less文件
+                // 匹配.less文件的规则配置
                 test: /\.less$/,
                 use: [
-                    // 将CSS样式插入到DOM中
-                    "style-loader",
+                    // 同上，根据开发环境选择合适的CSS加载器
+                    IsDev ? "style-loader" : MiniCssExtractPlugin.loader,
                     // 处理CSS文件，支持模块化、压缩等
                     "css-loader",
-                    // 编译LESS到CSS
+                    // 将LESS编译为CSS
                     "less-loader"
                 ]
             },
+
+            
+            {
+                // 处理图像文件的规则配置
+                test: /\.(png|jpe?g|gif|webp|avif)(\?.*)?$/, // 匹配多种图像文件格式
+                type: "asset", // 将图像文件作为资产处理
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 10 * 1024, // 图片大小小于10KB将会被转成base64
+                    },
+                },
+                generator: {
+                    filename: "images/[hash:8][ext]", // 输出文件的命名规则，在images目录下，使用8位哈希值加原始扩展名
+                }
+            }
+
+            
         ]
     },
     // 插件配置数组
@@ -91,8 +120,19 @@ module.exports = {
         
         // VueLoaderPlugin是一个Vue.js的加载器插件，它自动处理Vue组件的加载
         new VueLoaderPlugin(),
-
-        // 用于在生成的HTML文件中注入Webpack打包后的JS文件和CSS文件等资源
+        
+        /**
+         * 创建一个HtmlWebpackPlugin实例
+         * 用于在生成的HTML文件中注入Webpack打包后的JS文件和CSS文件等资源
+         *
+         * @param {Object} 配置对象
+         * @param {string} template 指定HTML模板文件的路径
+         * @param {string} filename 指定生成的HTML文件的路径
+         * @param {string} title 设置HTML文档的标题
+         * @param {Object} minify HTML压缩配置，用于生产环境
+         *        - collapseWhitespace: true, // 压缩HTML，去除多余的空格
+         *        - removeComments: true // 移除HTML中的注释
+         */
         new HtmlWebpackPlugin({
             template: './index.html', // 指定项目中的index.html作为模板
             filename: './index.html', // 生成的HTML文件路径
@@ -102,6 +142,65 @@ module.exports = {
                 removeComments: true // 去掉注释
             }
         }),
-    ]
-
+        
+        /**
+         * 配置自动导入组件的功能
+         * 使用ElementPlusResolver以便自动解析并导入Element Plus组件库中的组件。
+         * 这样做旨在避免手动导入组件，从而提高开发效率。
+         */
+        AutoImport({
+            resolvers: [
+                ElementPlusResolver()
+            ]
+        }),
+        /**
+         * 注册组件的配置
+         * 通过使用ElementPlusResolver，自动注册Element Plus组件库中的所有组件。
+         * 使得这些组件在应用中可以直接使用，简化了组件注册流程。
+         */
+        Components({
+            resolvers: [
+                ElementPlusResolver(),
+                IconsResolver({
+                    // 修改Icon组件前缀，不设置则默认为i,禁用则设置为false
+                    prefix: 'icon',
+                    // 仅启用名为'ep'的图标集合
+                    enabledCollections: ['ep'],
+                })
+            ]
+        }),
+        
+        // 配置图标插件，自动安装所需的图标库
+        Icons({
+            autoInstall: true // 自动安装图标库
+        }),
+        
+        new webpack.ProgressPlugin(), // 运行进度
+        
+        new MiniCssExtractPlugin({
+            filename:'[name]_[chunkhash:8].css'
+        })
+        
+    ],
+    optimization: {
+    
+    },
+    // 性能配置项,用于设置与应用性能相关的警报阈值
+    performance: {
+        /**
+         * maxEntrypointSize - 入口文件大小警报阈值
+         * 设置入口文件（例如，HTML、CSS、JavaScript）的大小警报阈值。
+         * 当入口文件的大小超过此设置时，将触发性能警报。
+         * 单位：字节。
+         */
+        maxEntrypointSize: 512000, // 0.5 MB
+        
+        /**
+         * maxAssetSize - 单个资源体积
+         * 设置单个资源（如图片、字体文件等）的大小警报阈值。
+         * 当任何单个资源的大小超过此设置时，将触发性能警报。
+         * 单位：字节。
+         */
+        maxAssetSize: 512000
+    },
 }

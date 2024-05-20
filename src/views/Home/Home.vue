@@ -6,7 +6,12 @@
 <template>
     <div class="hello">
         Hello, Webpack.
+        <br />
+        <icon-ep-aim />
+        <br />
+        <el-button type="danger">Danger</el-button>
     </div>
+    
 </template>
 
 <script setup>
