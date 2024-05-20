@@ -1,0 +1,136 @@
+// 初始化一些标签的默认样式
+// Reset.less
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #333;
+    background-color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: normal;
+}
+
+p {
+    margin: 0;
+}
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+// Utility classes
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+// 补充的Reset.less代码
+button,
+input,
+select,
+textarea {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 1px solid #ccc;
+    font-family: inherit; // 确保表单元素字体与页面其他部分一致
+    font-size: inherit; // 同上
+    line-height: inherit; // 同上
+}
+
+// 移除按钮和输入框在各浏览器中的默认样式
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+// 确保链接、按钮等可点击元素在移动设备上的可触摸区域
+a,
+button {
+    touch-action: manipulation;
+}
+
+// 图像替换类，用于文字替换为图像的技术
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden; // 防止图片与文本同时显示
+    text-indent: 100%;
+    white-space: nowrap;
+}
+
+// 移除水平表单元素的内外边距
+fieldset,
+legend {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+// 所有表单控件都应适应其容器的宽度
+input,
+select,
+textarea {
+    width: 100%;
+}
+
+// 移除WebKit浏览器默认的内填充及样式
+textarea {
+    overflow: auto; // 避免iOS上的死角
+    resize: vertical; // 允许用户调整textarea的高度，但是不允许调整宽度
+}
+
+// 表格元素的样式
+table {
+    border-collapse: collapse; // 移除HTML表格单元格之间的间距
+    width: 100%;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}

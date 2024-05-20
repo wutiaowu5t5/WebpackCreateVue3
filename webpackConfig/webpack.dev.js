@@ -31,14 +31,14 @@ module.exports = merge(base, {
                 warnings: true // 在浏览器上覆盖警告
             }
         },
-        proxy: {
-            // 设置对"/apis"开头的请求的代理
-            "/apis": {
-                target: "your-target-url", // 目标服务器URL
-                pathRewrite: {"^/apis": "" }, // 将请求路径中的"/apis"移除
+        proxy: [
+            {
+                context: ['/api'], // 设置对"/apis"开头的请求的代理
+                target: 'your-target-url', // 目标服务器URL
                 changeOrigin: true, // 设置请求的origin为目标服务器的origin
+                pathRewrite: { '^/api': '' }, // 将请求路径中的"/apis"移除
                 secure: false // 目标服务器地址是否为https，false表示不是
             }
-        }
+        ]
     }
 })
