@@ -51,11 +51,36 @@ module.exports = {
         rules: [
             // 这里是模块规则的数组，用于配置不同类型的文件如何被处理
             // 每个规则包括测试表达式（test）、加载器（loader）和选项（options）等
+            
             {
                 // 匹配.vue文件
                 test: /\.vue$/,
                 // 使用vue-loader处理
                 loader: 'vue-loader'
+            },
+            
+            {
+                // 匹配.css文件
+                test: /\.css$/,
+                use: [
+                    // 将CSS样式插入到DOM中
+                    "style-loader",
+                    // 处理CSS文件，支持模块化、压缩等
+                    "css-loader"
+                ]
+            },
+            
+            {
+                // 匹配.less文件
+                test: /\.less$/,
+                use: [
+                    // 将CSS样式插入到DOM中
+                    "style-loader",
+                    // 处理CSS文件，支持模块化、压缩等
+                    "css-loader",
+                    // 编译LESS到CSS
+                    "less-loader"
+                ]
             },
         ]
     },
