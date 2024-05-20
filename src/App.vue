@@ -15,6 +15,6 @@ const state = reactive( {} )
 const {} = toRefs( state )
 </script>
 
-<style scoped lang="less">
+<style scoped>
 
 </style>

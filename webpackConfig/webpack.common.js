@@ -9,6 +9,10 @@
  */
 const path = require('path')
 
+// Vue-loader配置
+const { VueLoaderPlugin } = require('vue-loader')
+// Html模板插件
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     // 配置模块解析规则
@@ -47,12 +51,32 @@ module.exports = {
         rules: [
             // 这里是模块规则的数组，用于配置不同类型的文件如何被处理
             // 每个规则包括测试表达式（test）、加载器（loader）和选项（options）等
+            {
+                // 匹配.vue文件
+                test: /\.vue$/,
+                // 使用vue-loader处理
+                loader: 'vue-loader'
+            },
         ]
     },
     // 插件配置数组
     plugins: [
         // 这里放置项目使用的插件列表
         // 插件可以执行各种任务，如自动优化和压缩代码、注入环境变量等
+        
+        // VueLoaderPlugin是一个Vue.js的加载器插件，它自动处理Vue组件的加载
+        new VueLoaderPlugin(),
+
+        // 用于在生成的HTML文件中注入Webpack打包后的JS文件和CSS文件等资源
+        new HtmlWebpackPlugin({
+            template: './index.html', // 指定项目中的index.html作为模板
+            filename: './index.html', // 生成的HTML文件路径
+            title: 'Vue3 + webpack -> Web App', // 设置HTML文档的标题
+            minify: { // HTML压缩配置，仅在生产环境下启用
+                collapseWhitespace: true, // 去掉空格
+                removeComments: true // 去掉注释
+            }
+        }),
     ]
 
 }
