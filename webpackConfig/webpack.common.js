@@ -22,7 +22,8 @@ const IconsResolver = require('unplugin-icons/resolver')
 const Icons = require('unplugin-icons/webpack')
 // Css提取分离
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
+// 进度条美化
+const WebpackBar = require('webpackbar')
 // 是否开发环境
 const IsDev = process.env.NODE_ENV === 'development'
 
@@ -217,7 +218,11 @@ module.exports = {
         }),
         
         // 进度条插件：用于显示webpack构建的进度
-        new webpack.ProgressPlugin(),
+        new WebpackBar({
+            color: "#85d",  // 默认green，进度条颜色支持HEX
+            basic: false,   // 默认true，启用一个简单的日志报告器
+            profile:false,  // 默认false，启用探查器。
+        }),
         
         // CSS提取插件：将CSS从JS文件中分离出来，生成单独的CSS文件
         // filename格式：根据块的名称和哈希值生成CSS文件名，例如：name_chunkhash:8.css
