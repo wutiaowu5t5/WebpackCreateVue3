@@ -80,8 +80,18 @@ module.exports = {
                     // 根据开发环境选择使用style-loader或将CSS提取到单独的文件中
                     IsDev ? "style-loader" : MiniCssExtractPlugin.loader,
                     // 对CSS文件进行处理，支持模块化、压缩等操作
-                    "css-loader"
+                    "css-loader",
+                    "postcss-loader"
                 ]
+            },
+            
+            {
+                test: /\.js$/,
+                use: [
+                    'thread-loader', // 在这里添加`thread-loader`
+                    'babel-loader'
+                ],
+                exclude: /node_modules/,
             },
             
             {
@@ -92,6 +102,7 @@ module.exports = {
                     IsDev ? "style-loader" : MiniCssExtractPlugin.loader,
                     // 处理CSS文件，支持模块化、压缩等
                     "css-loader",
+                    "postcss-loader",
                     // 将LESS编译为CSS
                     "less-loader"
                 ]
@@ -108,9 +119,36 @@ module.exports = {
                     },
                 },
                 generator: {
-                    filename: "images/[hash:8][ext]", // 输出文件的命名规则，在images目录下，使用8位哈希值加原始扩展名
+                    filename: "static/images/[hash:8][ext]", // 输出文件的命名规则，在images目录下，使用8位哈希值加原始扩展名
                 }
-            }
+            },
+            
+            {
+                test:/.(woff2?|eot|ttf|otf)$/, // 匹配字体图标文件
+                type: "asset", // type选择asset
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 10 * 1024, // 小于10kb转base64位
+                    }
+                },
+                generator:{
+                    filename:'static/fonts/[hash:8][ext]', // 文件输出目录和命名
+                },
+            },
+            
+            {
+                test:/.(mp4|webm|ogg|mp3|wav|flac|aac)$/, // 匹配媒体文件
+                type: "asset", // type选择asset
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 10 * 1024, // 小于10kb转base64位
+                    }
+                },
+                generator:{
+                    filename:'static/media/[hash:8][ext]', // 文件输出目录和命名
+                },
+            },
+            
 
             
         ]

@@ -12,7 +12,8 @@
  */
 
 const { merge } = require("webpack-merge") // 引入webpack合并配置的工具
-const base = require("./webpack.common.js") // 引入基础的webpack配置文件
+const base = require("./webpack.common.js")
+const webpack = require( 'webpack' ) // 引入基础的webpack配置文件
 
 module.exports = merge(base, {
     mode: 'development', // 设置为开发模式
@@ -40,5 +41,8 @@ module.exports = merge(base, {
                 secure: false // 目标服务器地址是否为https，false表示不是
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin() // 启用 HMR 功能
+    ]
 })
