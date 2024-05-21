@@ -4,7 +4,22 @@ import pluginVue from "eslint-plugin-vue";
 
 
 export default [
-  {languageOptions: { globals: globals.browser }},
-  pluginJs.configs.recommended,
-  ...pluginVue.configs["flat/essential"],
-];
+    pluginJs.configs.recommended,
+    ...pluginVue.configs["flat/essential"],
+    {
+        languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: "module",
+            globals: globals.browser
+        },
+        ignores: [
+            "/webpackConfig/",
+            "/node_modules/",
+            "src/assets",
+            "/dist/"
+        ],
+        rules: {
+        
+        }
+    }
+]

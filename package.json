@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve --config ./webpackConfig/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config ./webpackConfig/webpack.prod.js",
-    "analysis": "cross-env NODE_ENV=production webpack --config ./webpackConfig/webpack.analysis.js"
+    "analysis": "cross-env NODE_ENV=production webpack --config ./webpackConfig/webpack.analysis.js",
+    "check": "eslint --fix"
   },
   "keywords": [],
   "author": "",
