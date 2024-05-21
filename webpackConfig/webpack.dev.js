@@ -14,6 +14,8 @@
 const { merge } = require("webpack-merge") // 引入webpack合并配置的工具
 const base = require("./webpack.common.js")
 const webpack = require("webpack")
+// 编译过程终端美化
+const FriendlyErrorsWebpackPlugin = require('@nuxt/friendly-errors-webpack-plugin')
 
 module.exports = merge(base, {
     mode: 'development', // 设置为开发模式
@@ -47,6 +49,7 @@ module.exports = merge(base, {
         type: 'filesystem'
     },
     plugins: [
-        new webpack.ProgressPlugin()
+        new webpack.ProgressPlugin(),
+        new FriendlyErrorsWebpackPlugin()
     ]
 })
