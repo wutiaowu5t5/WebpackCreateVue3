@@ -56,7 +56,9 @@ module.exports = {
         // 设置资源的公共路径，对于在页面中引用的静态资源，都将以此路径为基础
         publicPath: '/',
         // 清除上一次打包构建出来的文件
-        clean: true
+        clean: true,
+        // 用于指定非入口(non-initial) chunk 文件的名称，这通常是用于懒加载模块时Webpack按需加载的块
+        chunkFilename: '[name].js'
     },
     // 定义模块的规则配置
     module: {
