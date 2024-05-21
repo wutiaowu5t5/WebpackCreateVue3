@@ -13,11 +13,12 @@
 
 const { merge } = require("webpack-merge") // 引入webpack合并配置的工具
 const base = require("./webpack.common.js")
-const webpack = require( 'webpack' ) // 引入基础的webpack配置文件
+const webpack = require("webpack")
 
 module.exports = merge(base, {
     mode: 'development', // 设置为开发模式
     devtool: "source-map", // 启用source-map，便于调试
+    stats: 'errors-warnings',
     devServer: {
         compress: true, // 启用gzip压缩
         port: 3000, // 设置监听的端口号
@@ -42,7 +43,10 @@ module.exports = merge(base, {
             }
         ]
     },
+    cache: {
+        type: 'filesystem'
+    },
     plugins: [
-        new webpack.HotModuleReplacementPlugin() // 启用 HMR 功能
+        new webpack.ProgressPlugin()
     ]
 })

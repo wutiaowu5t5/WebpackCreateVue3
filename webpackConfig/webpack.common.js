@@ -84,7 +84,6 @@ module.exports = {
                     "css-loader",
                     "postcss-loader"
                 ],
-                include: /src/
             },
             
             {
@@ -108,7 +107,6 @@ module.exports = {
                     // 将LESS编译为CSS
                     "less-loader"
                 ],
-                include: /src/
             },
 
             
@@ -218,16 +216,26 @@ module.exports = {
             autoInstall: true // 自动安装图标库
         }),
         
-        new webpack.ProgressPlugin(), // 运行进度
+        // 进度条插件：用于显示webpack构建的进度
+        new webpack.ProgressPlugin(),
         
+        // CSS提取插件：将CSS从JS文件中分离出来，生成单独的CSS文件
+        // filename格式：根据块的名称和哈希值生成CSS文件名，例如：name_chunkhash:8.css
         new MiniCssExtractPlugin({
             filename:'[name]_[chunkhash:8].css'
+        }),
+        
+        // 定义插件：用于定义全局常量，影响代码的编译结果
+        // - __VUE_OPTIONS_API__: 启用Vue的选项API
+        // - __VUE_PROD_DEVTOOLS__: 在生产环境中禁用Vue的开发工具
+        // - __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 在生产环境中禁用hydration不匹配的详细信息
+        new webpack.DefinePlugin({
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false,
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
         })
         
     ],
-    optimization: {
-    
-    },
     // 性能配置项,用于设置与应用性能相关的警报阈值
     performance: {
         /**
