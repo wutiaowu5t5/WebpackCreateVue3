@@ -18,10 +18,8 @@ const { PurgeCSSPlugin } = require('purgecss-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // 图片压缩处理
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin")
-// 构建速度分析
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin")
-const smp = new SpeedMeasurePlugin()
-//smp.wrap()
+// 生成压缩gzip
+const CompressionPlugin  = require('compression-webpack-plugin')
 
 module.exports = merge(base, {
     mode: 'production',
@@ -62,6 +60,13 @@ module.exports = merge(base, {
                 // nodir选项设置为true，意味着返回的匹配结果中不包含目录路径，只有文件路径。
                 // 这确保PurgeCSSPlugin只会接收到文件路径，而不是目录路径，因为插件需要文件内容来确定哪些CSS类是被使用的。
                 {nodir: true}),
+        }),
+        new CompressionPlugin({
+            filename: '[path][base].gz', // 文件命名
+            algorithm: 'gzip', // 压缩格式,默认是gzip
+            test: /.(js|css)$/, // 只生成css,js压缩文件
+            threshold: 10240, // 只有大小大于该值的资源会被处理。默认值是 10k
+            minRatio: 0.8 // 压缩率,默认值是 0.8
         })
     ],
     optimization: {

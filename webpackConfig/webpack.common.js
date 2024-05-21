@@ -70,7 +70,8 @@ module.exports = {
                 // 匹配.vue文件
                 test: /\.vue$/,
                 // 使用vue-loader处理
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                include: /src/
             },
             
             {
@@ -82,7 +83,8 @@ module.exports = {
                     // 对CSS文件进行处理，支持模块化、压缩等操作
                     "css-loader",
                     "postcss-loader"
-                ]
+                ],
+                include: /src/
             },
             
             {
@@ -105,7 +107,8 @@ module.exports = {
                     "postcss-loader",
                     // 将LESS编译为CSS
                     "less-loader"
-                ]
+                ],
+                include: /src/
             },
 
             
