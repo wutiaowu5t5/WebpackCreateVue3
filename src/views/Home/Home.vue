@@ -11,7 +11,6 @@
         <br />
         <el-button type="danger">Danger</el-button>
     </div>
-    
 </template>
 
 <script setup>
