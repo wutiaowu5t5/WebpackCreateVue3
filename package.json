@@ -8,7 +8,13 @@
     "build": "cross-env NODE_ENV=production webpack --config ./webpackConfig/webpack.prod.js",
     "analysis": "cross-env NODE_ENV=production webpack --config ./webpackConfig/webpack.analysis.js",
     "eslint": "eslint ./src",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-check": "npx lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{js,vue}": [
+      "eslint --fix"
+    ]
   },
   "keywords": [],
   "author": "",
