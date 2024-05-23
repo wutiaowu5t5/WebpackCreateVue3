@@ -16,6 +16,8 @@ const base = require("./webpack.common.js")
 const webpack = require("webpack")
 // 编译过程终端美化
 const FriendlyErrorsWebpackPlugin = require('@nuxt/friendly-errors-webpack-plugin')
+// 终端检查代码
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 module.exports = merge(base, {
     mode: 'development', // 设置为开发模式
@@ -50,6 +52,12 @@ module.exports = merge(base, {
     },
     plugins: [
         new webpack.ProgressPlugin(),
-        new FriendlyErrorsWebpackPlugin()
+        new FriendlyErrorsWebpackPlugin(),
+        new ESLintPlugin({
+            //运行的时候自动帮你修复错误
+            fix: true,
+            exclude: 'node_modules',
+            extensions: ['js', 'vue']
+        })
     ]
 })

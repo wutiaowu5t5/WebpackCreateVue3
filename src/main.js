@@ -4,7 +4,7 @@
  * @Time: 2024/5/17 17:04
  */
 // 创建Vue
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 const app = createApp(App)
 
