@@ -19,6 +19,11 @@
 </template>
 
 <script setup>
+console.info('mut ziu dim yan zaau bed dou nei')
+console.warn('mut ziu dim yan zaau bed dou nei')
+console.error('mut ziu dim yan zaau bed dou nei')
+console.success('mut ziu dim yan zaau bed dou nei')
+console.log('mut ziu dim yan zaau bed dou nei')
 </script>
 
 <style scoped lang="less">

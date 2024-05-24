@@ -16,5 +16,8 @@ app.use(store)
 import router from './router/router'
 app.use(router)
 
+// 引入log美化
+import consoleOverridePlugin from './utils/customConsole/consolePlugin'
+app.use(consoleOverridePlugin)
 
 app.mount('#app')

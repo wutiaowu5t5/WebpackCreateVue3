@@ -32,7 +32,7 @@ module.exports = {
     resolve: {
         // 后缀名自动补全，当引入模块时，可以不写具体的后缀名，这里指定了可用的后缀名列表
         extensions: [
-            '.js', 'ts', 'json', '.vue', '.css', 'less'
+            '.js', '.ts', '.json', '.vue', '.css', '.less'
         ],
         // 配置别名，方便在import时使用简写，提高编码效率
         alias: {
