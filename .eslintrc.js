@@ -5,13 +5,14 @@ module.exports = {
   'parser': 'vue-eslint-parser',
   // 解析器选项，指定JavaScript源码类型为ES模块
   parserOptions: {
+    ecmaVersion: 13,
     sourceType: 'module'
   },
   // 定义执行环境，启用对浏览器、Node.js环境及ES6语法的支持
   env: {
     browser: true,
     node: true,
-    es6: true
+    es2022: true
   },
   // 基于ESLint推荐规则进行扩展，并启用Vue 3的推荐规则
   extends: ['eslint:recommended', 'plugin:vue/vue3-recommended'],
@@ -493,7 +494,7 @@ module.exports = {
     'no-void': 2,
 
     // 禁止警告注释
-    'no-warning-comments': 1,
+    'no-warning-comments': 0,
 
     // 禁止在属性前后的空白
     'no-whitespace-before-property': 2,

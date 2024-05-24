@@ -41,7 +41,9 @@ module.exports = {
             // '@cmp'别名指向组件目录，方便直接引入组件
             '@cmp': path.resolve(__dirname, '../src/components'),
             // '@api'别名指向API接口目录，便于调用接口
-            '@api': path.resolve(__dirname, '../src/api')
+            '@api': path.resolve(__dirname, '../src/api'),
+            // '@utils'别名指向Utils接口目录，便于调用接口
+            '@utils': path.resolve(__dirname, '../src/utils')
         }
     },
     // 配置入口文件
