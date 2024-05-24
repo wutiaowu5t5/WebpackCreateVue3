@@ -22,10 +22,11 @@
 
 <style scoped lang="less">
 .hello {
-    color: black;
-    width: 100%;
-    text-align: center;
-    font-size: 40px;
+  margin-top: 20px;
+  color: black;
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
   
   > span {
     color: red;
