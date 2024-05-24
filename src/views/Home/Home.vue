@@ -16,10 +16,6 @@
 </template>
 
 <script setup>
-import {reactive, toRefs} from 'vue'
-const state = reactive( {} )
-
-const {} = toRefs( state )
 </script>
 
 <style scoped lang="less">
