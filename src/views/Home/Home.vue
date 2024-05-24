@@ -12,6 +12,8 @@
     <el-button type="danger">
       Danger
     </el-button>
+    <span>lang lang yu wo~~~</span>
+    <span>mut ziu dim yan zaau bed dou nei</span>
   </div>
 </template>
 
@@ -24,5 +26,9 @@
     width: 100%;
     text-align: center;
     font-size: 40px;
+  
+  > span {
+    color: red;
+  }
 }
 </style>
