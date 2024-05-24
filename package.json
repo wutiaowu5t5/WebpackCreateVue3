@@ -20,9 +20,6 @@
   "lint-staged": {
     "src/**/*.{js,vue}": [
       "eslint --fix"
-    ],
-    "src/**/*.{css,less,vue}": [
-      "stylelint --fix"
     ]
   },
   "keywords": [],
