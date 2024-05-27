@@ -28,11 +28,11 @@ export default {
       // originalConsoleError.apply(console, args);
     }
     
-    // console.table = function (...args) {
-    //  prettyLog.table(...args)
-    //  // 如果你还想保留原始的 console.table 输出，取消下面的注释
-    //  // originalConsoleTable.apply(console, args);
-    // }
+    console.table = function (...args) {
+      prettyLog.table(...args)
+      // 如果你还想保留原始的 console.table 输出，取消下面的注释
+      // originalConsoleTable.apply(console, args);
+    }
     
     console.success = function (...args) {
       prettyLog.success(...args)

@@ -24,52 +24,45 @@ const logMessage = (type, textOrTitle, content, color) => {
 }
 
 const prettyLog = {
-  info: (textOrTitle, content = '') => {
-    logMessage('Info', textOrTitle, content, '#909399')
+  info: ( textOrTitle, content = '' ) => {
+    logMessage( 'Info', textOrTitle, content, '#909399' )
   },
   
-  error: (textOrTitle, content = '') => {
-    logMessage('Error', textOrTitle, content, '#F56C6C')
+  error: ( textOrTitle, content = '' ) => {
+    logMessage( 'Error', textOrTitle, content, '#F56C6C' )
   },
   
-  warning: (textOrTitle, content = '') => {
-    logMessage('Warning', textOrTitle, content, '#E6A23C')
+  warning: ( textOrTitle, content = '' ) => {
+    logMessage( 'Warning', textOrTitle, content, '#E6A23C' )
   },
   
-  success: (textOrTitle, content = '') => {
-    logMessage('Success', textOrTitle, content, '#67C23A')
+  success: ( textOrTitle, content = '' ) => {
+    logMessage( 'Success', textOrTitle, content, '#67C23A' )
+  },
+  
+  table: (input) => {
+    const type = Object.prototype.toString.call(input)
+    const padding = 'padding: 2px 10px;'
+    const headerStyle = `color: white; background-color: black; ${padding}`
+    const indexStyle = `color: black; background-color: lightgray; ${padding}`
+    const valueStyle = `color: black; background-color: #B87FE8; ${padding}`
+  
+    if (type === '[object Array]') {
+      console.log('%c Index %c Value', headerStyle, headerStyle)
+    
+      input.forEach((item, index) => {
+        console.log(`%c ${index} %c ${JSON.stringify(item)} `, indexStyle, valueStyle)
+      })
+    } else if (type === '[object Object]') {
+      console.log('%c Key %c Value', headerStyle, headerStyle)
+    
+      Object.keys(input).forEach((key) => {
+        console.log(`%c ${key} %c ${input[key]} `, indexStyle, valueStyle)
+      })
+    } else {
+      console.log('Input type not supported.')
+    }
   }
-  
-  // table: (data) => {
-  //  if (isEmpty(data)) {
-  //    prettyLog.warning('Table', 'Empty value provided')
-  //    return
-  //  }
-  //  if (!Array.isArray(data) && typeof data !== 'object') {
-  //    prettyLog.warning('Table', 'Invalid data type provided')
-  //    return
-  //  }
-  //
-  //  const keys = Array.isArray(data) ? Object.keys(data[0]) : Object.keys(data)
-  //  console.log(
-  //    `%c ${keys.join(' %c ')}`,
-  //    ...keys.map(() => 'color: white; background-color: black; padding: 2px 10px;')
-  //  )
-  //
-  //  if (Array.isArray(data)) {
-  //    data.forEach((row) => {
-  //      console.log(
-  //        `%c ${keys.map(key => row[key]).join(' %c ')}`,
-  //        ...keys.map(() => 'color: black; background-color: lightgray; padding: 2px 10px;')
-  //      )
-  //    })
-  //  } else {
-  //    console.log(
-  //      `%c ${keys.map(key => data[key]).join(' %c ')}`,
-  //      ...keys.map(() => 'color: black; background-color: lightgray; padding: 2px 10px;')
-  //    )
-  //  }
-  // }
 }
 
 export default prettyLog
